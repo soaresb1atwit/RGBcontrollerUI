@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="button">#2986FF</color>
+    <color name="cancelBtn">#eb3148</color>
+    <color name="confirmBtn">#32CD30</color>
 </resources>

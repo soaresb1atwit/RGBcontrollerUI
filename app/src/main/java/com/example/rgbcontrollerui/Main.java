@@ -1,10 +1,15 @@
 package com.example.rgbcontrollerui;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,6 +28,7 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setToolbar();
+        promptConnection();
         mPickColorButton = findViewById(R.id.pick_color_button);
         mSetColorButton = findViewById(R.id.set_color_button);
         mColorPreview = findViewById(R.id.preview_selected_color);
@@ -88,5 +94,29 @@ public class Main extends AppCompatActivity {
                     }
                 });
         colorPickerDialogue.show();
+    }
+    @SuppressLint("MissingInflatedId")
+    private void promptConnection() {
+        Button cancel;
+        Button confirm;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View view = LayoutInflater.from(this).inflate(R.layout.connection_dialog, null);
+        builder.setView(view);
+
+        cancel = view.findViewById(R.id.cancelConnectionBtn);
+        confirm = view.findViewById(R.id.confirmConnectionBtn);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        cancel.setOnClickListener(v -> {
+            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+        });
+
+        confirm.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
     }
 }
