@@ -6,7 +6,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
-import me.bsalha.washeralert.Device;
+import com.example.rgbcontrollerui.Device;
 
 public class MCUAlertServer extends MCUServer
 {
