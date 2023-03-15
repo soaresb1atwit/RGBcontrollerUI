@@ -25,7 +25,6 @@ public class Device
     @Expose
     private final String ssid;
 
-
     private MCUAlertServer alertServer;
     private boolean configured = false;
 

@@ -1,4 +1,4 @@
-package com.example.rgbcontrollerui;
+package com.example.rgbcontrollerui.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,9 +13,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.rgbcontrollerui.R;
+
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class Main extends AppCompatActivity {
+public class Custom_Color_Fragment extends AppCompatActivity {
     private Toolbar toolbar;
     private Button mSetColorButton, mPickColorButton;
     private View mColorPreview;
@@ -32,7 +34,7 @@ public class Main extends AppCompatActivity {
         mPickColorButton = findViewById(R.id.pick_color_button);
         mSetColorButton = findViewById(R.id.set_color_button);
         mColorPreview = findViewById(R.id.preview_selected_color);
-        textView = findViewById(R.id.textView);
+        textView = findViewById(R.id.colorPreviewTextView);
         mDefaultColor = 0;
 
         mPickColorButton.setOnClickListener(

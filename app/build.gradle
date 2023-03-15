@@ -15,6 +15,22 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    sourceSets {
+        main {
+            java {
+                exclude '**/Device.java'
+                exclude '**/DeviceManager.java'
+                exclude '**/Logger.java'
+                exclude '**/MCUAlertServer.java'
+                exclude '**/MCUConfigServer.java'
+                exclude '**/MCUServer.java'
+                exclude '**/MCUServerException.java'
+                exclude '**/SocketManager.java'
+                exclude '**/WifiInterface.java'
+                exclude '**/WifiInterfaceException.java'
+            }
+        }
+    }
 
     buildTypes {
         release {
@@ -31,10 +47,12 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
+    implementation 'com.google.code.gson:gson:2.8.7'
 }
