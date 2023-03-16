@@ -9,18 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rgbcontrollerui.R;
+import com.google.android.material.slider.RangeSlider;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CycleColorFragment#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
  */
 public class CycleColorFragment extends Fragment {
+    RangeSlider cycleRedSlider;
+    RangeSlider cycleGreenSlider;
+    RangeSlider cycleBlueSlider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View cycleColorInflatedView = inflater.inflate(R.layout.fragment_cycle_color, container, false);
+        cycleRedSlider = cycleColorInflatedView.findViewById(R.id.cycleRedBrightnessRangeSlider);
+        cycleGreenSlider = cycleColorInflatedView.findViewById(R.id.cycleGreenBrightnessRangeSlider);
+        cycleBlueSlider = cycleColorInflatedView.findViewById(R.id.cycleBlueBrightnessRangeSlider);
+        cycleRedSlider.setValues(255.0f);
+        cycleGreenSlider.setValues(255.0f);
+        cycleBlueSlider.setValues(255.0f);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cycle_color, container, false);
+        return cycleColorInflatedView;
     }
 }

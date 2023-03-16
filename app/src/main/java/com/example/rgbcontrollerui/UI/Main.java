@@ -15,11 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+//import com.espressif.provisioning.ESPProvisionManager;
 import com.example.rgbcontrollerui.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarItemView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.slider.RangeSlider;
 
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
@@ -61,6 +63,15 @@ public class Main extends AppCompatActivity {
             }
         });
     }
+
+//    private void setSliderValues() {
+//        fadeRedSlider.setValueTo(255);
+//        fadeGreenSlider.setValueTo(255);
+//        fadeBlueSlider.setValueTo(255);
+//        cycleRedSlider.setValueTo(255);
+//        cycleGreenSlider.setValueTo(255);
+//        cycleBlueSlider.setValueTo(255);
+//    }
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
