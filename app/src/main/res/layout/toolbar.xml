@@ -13,24 +13,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/powerBtn"
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:scaleType="fitXY"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/power_btn">
+            </ImageButton>
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="36dp"
-                android:layout_marginLeft="36dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/toolbarTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Title"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:textStyle="bold">
-                </TextView>
-            </LinearLayout>
+                android:layout_centerInParent="true"
+                android:text="Title"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold">
+            </TextView>
+            <ImageButton
+                android:id="@+id/searchBtn"
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/search_btn"
+                >
+            </ImageButton>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

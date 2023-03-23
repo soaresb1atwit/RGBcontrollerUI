@@ -36,7 +36,6 @@ public class CustomColorFragment extends Fragment {
         colorPreview = mColorMainView.findViewById(R.id.preview_selected_color);
         colorPreviewTextView = mColorMainView.findViewById(R.id.colorPreviewTextView);
         mDefaultColor = 0;
-        setToolbar();
 
         pickColorButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -57,14 +56,17 @@ public class CustomColorFragment extends Fragment {
                     }
                 });
 
+//        setToolbar();
+
         return mColorMainView;
     }
 
-    private void setToolbar() {
-        toolbar = mColorMainView.findViewById(R.id.toolbar);
-        TextView title = toolbar.findViewById(R.id.toolbarTitle);
-        title.setText("ESP32 RGB Controller");
-    }
+//    private void setToolbar() {
+//        toolbar = mColorMainView.findViewById(R.id.toolbar);
+//        TextView title = toolbar.findViewById(R.id.toolbarTitle);
+//        toolbar.setVisibility(View.GONE);
+//        title.setText("ESP32 RGB Controller");
+//    }
     public void openColorPickerDialogue() {
         final AmbilWarnaDialog colorPickerDialogue = new AmbilWarnaDialog(getActivity(), mDefaultColor,
                 new AmbilWarnaDialog.OnAmbilWarnaListener() {

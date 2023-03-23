@@ -4,37 +4,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Main">
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
     <include
         android:id="@+id/toolbarMain"
         layout="@layout/toolbar"
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Music Sync Fragment"
-        android:textSize="25sp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationBar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        android:visibility="gone"/>
+        android:layout_below="@id/toolbarMain"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="30sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="Music Sync Fragment"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/selectTrackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbarMain"
+            android:text="Select Track"
+            android:textSize="50px"
+            android:visibility="gone">
+        </Button>
+        <ImageView
+            android:id="@+id/albumCoverImgView"
+            android:layout_width="120sp"
+            android:layout_height="120sp"
+            android:layout_marginTop="50sp"
+            android:background="@drawable/album_cover_img"
+            android:drawingCacheQuality="auto"
+            android:elevation="50sp"
+            android:outlineAmbientShadowColor="@color/black">
+        </ImageView>
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trackSeekBar"
+            android:layout_marginHorizontal="50sp">
+        </SeekBar>
+        <TextView
+            android:id="@+id/trackTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="Sample.mp3"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:background="@drawable/track_play_btn"></ImageButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="30sp"
+            android:text="Flash Colors"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10sp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/redCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/selectTrackBtn"
+                    android:layout_centerHorizontal="true"
+                    android:scaleX="1.40"
+                    android:scaleY="1.40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Red"
+                    android:textSize="60px"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/greenCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/selectTrackBtn"
+                    android:scaleX="1.40"
+                    android:scaleY="1.40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Green"
+                    android:textSize="60px"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/blueCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/selectTrackBtn"
+                    android:scaleX="1.40"
+                    android:scaleY="1.40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blue"
+                    android:textSize="60px"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/musicLibraryFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:contentDescription="@string/submit"
+        android:src="@drawable/playlist_icon"/>
 </RelativeLayout>

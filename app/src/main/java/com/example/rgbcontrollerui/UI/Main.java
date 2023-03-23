@@ -1,21 +1,37 @@
 package com.example.rgbcontrollerui.UI;
 
+import android.Manifest;
+import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 //import com.espressif.provisioning.ESPProvisionManager;
+import com.example.rgbcontrollerui.Adapters.SongAdapter;
 import com.example.rgbcontrollerui.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,8 +39,13 @@ import com.google.android.material.navigation.NavigationBarItemView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.slider.RangeSlider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Main extends AppCompatActivity {
     private Toolbar toolbar;
+    private TextView toolbarTitle;
     BottomNavigationView bottomNavigationView;
     CustomColorFragment customColorFragment = new CustomColorFragment();
     FadeColorFragment fadeColorFragment = new FadeColorFragment();
@@ -39,7 +60,6 @@ public class Main extends AppCompatActivity {
         setToolbar();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         promptConnection();
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container, customColorFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -48,15 +68,19 @@ public class Main extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.custom:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, customColorFragment).commit();
+                        toolbarTitle.setText("Custom Color");
                         return true;
                     case R.id.fade:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, fadeColorFragment).commit();
+                        toolbarTitle.setText("Fade Color");
                         return true;
                     case R.id.cycle:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, cycleColorFragment).commit();
+                        toolbarTitle.setText("Cycle Color");
                         return true;
                     case R.id.music:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, musicSyncFragment).commit();
+                        toolbar.setVisibility(View.GONE);
                         return true;
                 }
                 return false;
@@ -64,19 +88,11 @@ public class Main extends AppCompatActivity {
         });
     }
 
-//    private void setSliderValues() {
-//        fadeRedSlider.setValueTo(255);
-//        fadeGreenSlider.setValueTo(255);
-//        fadeBlueSlider.setValueTo(255);
-//        cycleRedSlider.setValueTo(255);
-//        cycleGreenSlider.setValueTo(255);
-//        cycleBlueSlider.setValueTo(255);
-//    }
-
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.GONE);
+        toolbarTitle = toolbar.findViewById(R.id.toolbarTitle);
     }
+
     private void promptConnection() {
         Button cancel;
         Button confirm;
