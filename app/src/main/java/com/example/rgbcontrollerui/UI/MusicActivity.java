@@ -111,7 +111,7 @@ public class MusicActivity extends AppCompatActivity {
         };
 
         //order
-        String sortOrder = MediaStore.Audio.Media.DATE_ADDED + "DESC";
+        String sortOrder = MediaStore.Audio.Media.DATE_ADDED + " DESC";
 
         //get the songs
         try(Cursor cursor = getContentResolver().query(mediaStoreUri, projection, null, null, sortOrder)) {
@@ -126,7 +126,7 @@ public class MusicActivity extends AppCompatActivity {
                 //get the values of column for a given audio file
                 long id = cursor.getLong(idColumn);
                 String name = cursor.getString(nameColumn);
-                int duration = cursor.getInt(durationColumn);
+                String duration = Integer.toString(cursor.getInt(durationColumn));
                 int size = cursor.getInt(sizeColumn);
                 long albumId = cursor.getLong(albumIdColumn);
 

@@ -27,6 +27,21 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.context = context;
         this.songs = songs;
     }
+    //View Holder
+    public static class SongViewHolder extends RecyclerView.ViewHolder {
+        //Members
+        ImageView artworkHolder;
+        TextView titleHolder, durationHolder, sizeHolder;
+
+        public SongViewHolder(@NonNull View song_row_item) {
+            super(song_row_item);
+
+            artworkHolder = song_row_item.findViewById(R.id.albumCoverImgView);
+            titleHolder = song_row_item.findViewById(R.id.songTitleView);
+            durationHolder = song_row_item.findViewById(R.id.songDurationTextView);
+            sizeHolder = song_row_item.findViewById(R.id.songSizeTextView);
+        }
+    }
 
     @NonNull
     @Override
@@ -50,35 +65,18 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //artwork
         Uri artworkUri = song.getArtworkUri();
 
-        if (artworkUri!= null) {
-            //set the uri to image view
-            viewHolder.artworkHolder.setImageURI(artworkUri);
-
-            //make sure that the uri has an artwork
-            if (viewHolder.artworkHolder.getDrawable() == null) {
-                viewHolder.artworkHolder.setImageResource(R.drawable.song_default_icon);
-            }
-        }
+//        if (artworkUri!= null) {
+//            //set the uri to image view
+//            viewHolder.artworkHolder.setImageURI(artworkUri);
+//
+//            //make sure that the uri has an artwork
+//            if (viewHolder.artworkHolder.getDrawable() == null) {
+//                viewHolder.artworkHolder.setImageResource(R.drawable.song_default_icon);
+//            }
+//        }
 
         //on item click
         viewHolder.itemView.setOnClickListener(view -> Toast.makeText(context, song.getTitle(), Toast.LENGTH_SHORT).show());
-    }
-
-    //View Holder
-    public static class SongViewHolder extends RecyclerView.ViewHolder {
-        //Members
-        ImageView artworkHolder;
-        TextView titleHolder, durationHolder, sizeHolder;
-
-        public SongViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            artworkHolder = itemView.findViewById(R.id.albumCoverImgView);
-            titleHolder = itemView.findViewById(R.id.songTitleView);
-            durationHolder = itemView.findViewById(R.id.songDurationTextView);
-            sizeHolder = itemView.findViewById(R.id.songSizeTextView);
-
-        }
     }
 
     @Override

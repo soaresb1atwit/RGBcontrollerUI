@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,20 +28,36 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/ic_baseline_warning_24"
+            android:background="@drawable/baseline_network_wifi_2_bar_24"
             android:layout_marginBottom="10dp">
         </ImageView>
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Is your RGB controller connected to the current network?"
+            android:text="Enter your WiFi network"
             android:textStyle="bold"
             android:textSize="20dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_marginBottom="20dp">
         </TextView>
+        <EditText
+            android:id="@+id/networkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="WiFi Network Name"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"/>
+        <EditText
+            android:id="@+id/networkKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:hint="Enter your password"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -8,10 +8,10 @@ public class Song {
     Uri uri;
     Uri artworkUri;
     int size;
-    int duration;
+    String duration;
 
     //constructor
-    public Song(String title, Uri uri, Uri artworkUri, int size, int duration) {
+    public Song(String title, Uri uri, Uri artworkUri, int size, String duration) {
         this.title = title;
         this.uri = uri;
         this.artworkUri = artworkUri;
@@ -34,10 +34,25 @@ public class Song {
     }
 
     public int getSize() {
+
         return size;
     }
 
-    public int getDuration() {
+    public String getDuration() {
+        if(String.valueOf(duration) != null) {
+            Long time = Long.valueOf(duration);
+            long seconds = time/1000;
+            long minutes = seconds/60;
+            seconds = seconds % 60;
+
+            if(seconds<10) {
+                duration = String.valueOf(minutes) + ":0" + String.valueOf(seconds);
+            } else {
+                duration = String.valueOf(minutes) + ":" + String.valueOf(seconds);
+            }
+        } else {
+            String nothing = "0";
+        }
         return duration;
     }
 }
