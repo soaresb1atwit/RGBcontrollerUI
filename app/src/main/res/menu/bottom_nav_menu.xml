@@ -3,7 +3,8 @@
 
     <item android:title="Custom"
         android:icon="@drawable/baseline_color_lens_24"
-        android:id="@+id/custom"/>
+        android:id="@+id/custom"
+        android:drawable="@color/background"/>
     <item android:title="Fade"
         android:icon="@drawable/fade"
         android:id="@+id/fade"/>

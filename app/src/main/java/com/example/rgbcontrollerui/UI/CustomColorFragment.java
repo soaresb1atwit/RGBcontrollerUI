@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,10 @@ public class CustomColorFragment extends Fragment {
                         colorPreviewTextView.setTextColor(mDefaultColor);
                     }
                 });
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(R.transition.slide_left));
+//        setExitTransition(transitionInflater.inflateTransition(R.transition.fade));
 
 //        setToolbar();
 

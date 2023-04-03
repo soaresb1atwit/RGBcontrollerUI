@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Main">
+    tools:context=".UI.Main"
+    android:background="@color/background_second">
     <include
         android:id="@+id/toolbarMain"
         layout="@layout/toolbar"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,61 +26,26 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Music Sync Fragment"
-            android:textSize="25sp" />
+            android:text="Music React"
+            android:textColor="@color/background"
+            android:textSize="55sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/selectTrackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbarMain"
-            android:text="Select Track"
-            android:textSize="50px"
-            android:visibility="gone">
-        </Button>
-        <ImageView
-            android:id="@+id/albumCoverImgView"
-            android:layout_width="120sp"
-            android:layout_height="120sp"
-            android:layout_marginTop="50sp"
-            android:background="@drawable/album_cover_img"
-            android:drawingCacheQuality="auto"
-            android:elevation="50sp"
-            android:outlineAmbientShadowColor="@color/black">
-        </ImageView>
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/trackSeekBar"
-            android:layout_marginHorizontal="50sp">
-        </SeekBar>
         <TextView
-            android:id="@+id/trackTitle"
+            android:id="@+id/flashcolortv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Sample.mp3"
-            android:textSize="20sp" />
-
-        <ImageButton
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:background="@drawable/track_play_btn"></ImageButton>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:paddingTop="30sp"
+            android:paddingTop="70sp"
             android:text="Flash Colors"
-            android:textSize="25sp"
+            android:textColor="@color/text"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/flashcolorslayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -96,15 +63,19 @@
                     android:id="@+id/redCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/selectTrackBtn"
+                    android:layout_below="@id/flashcolortv"
                     android:layout_centerHorizontal="true"
+                    android:buttonTint="@color/cancelBtn"
+                    android:checked="true"
                     android:scaleX="1.40"
-                    android:scaleY="1.40" />
+                    android:scaleY="1.40"
+                    android:textColorHighlight="@color/text" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Red"
+                    android:textColor="@color/text"
                     android:textSize="60px"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
@@ -120,7 +91,9 @@
                     android:id="@+id/greenCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/selectTrackBtn"
+                    android:layout_below="@id/flashcolortv"
+                    android:buttonTint="@color/confirmBtn"
+                    android:checked="true"
                     android:scaleX="1.40"
                     android:scaleY="1.40" />
 
@@ -128,6 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Green"
+                    android:textColor="@color/text"
                     android:textSize="60px"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
@@ -143,7 +117,9 @@
                     android:id="@+id/blueCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/selectTrackBtn"
+                    android:layout_below="@id/flashcolortv"
+                    android:buttonTint="@color/button"
+                    android:checked="true"
                     android:scaleX="1.40"
                     android:scaleY="1.40" />
 
@@ -151,9 +127,76 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blue"
+                    android:textColor="@color/text"
                     android:textSize="60px"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sensitivitytv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="30sp"
+            android:text="React Sensitivity"
+            android:textColor="@color/text"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/cycleRedZeroBrightnessTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Low"
+                    android:textColor="@color/text"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/sensitivityRangeSlider"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/sensitivityRangeSlider"
+                    android:layout_width="250sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:stepSize="1"
+                    android:valueFrom="1"
+                    android:valueTo="10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></com.google.android.material.slider.RangeSlider>
+
+                <TextView
+                    android:id="@+id/fadeRedMaxBrightnessTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="High"
+                    android:textColor="@color/text"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/sensitivityRangeSlider"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -167,5 +210,6 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
         android:contentDescription="@string/submit"
-        android:src="@drawable/playlist_icon"/>
+        android:src="@drawable/playlist_icon"
+        android:visibility="gone"/>
 </RelativeLayout>

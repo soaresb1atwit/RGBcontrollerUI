@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,9 @@ public class FadeColorFragment extends Fragment {
         fadeRedSlider.setValues(255.0f);
         fadeGreenSlider.setValues(255.0f);
         fadeBlueSlider.setValues(255.0f);
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(R.transition.fade));
         // Inflate the layout for this fragment
         return fadeColorInflatedView;
     }

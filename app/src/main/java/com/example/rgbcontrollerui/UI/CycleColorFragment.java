@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ public class CycleColorFragment extends Fragment {
         cycleRedSlider.setValues(255.0f);
         cycleGreenSlider.setValues(255.0f);
         cycleBlueSlider.setValues(255.0f);
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(R.transition.fade));
         // Inflate the layout for this fragment
         return cycleColorInflatedView;
     }

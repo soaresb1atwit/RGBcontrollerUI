@@ -59,6 +59,15 @@ public class Main extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         promptConnection();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, customColorFragment).commit();
+        toolbarTitle.setVisibility(View.GONE);
+
+        //Initial launch fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, customColorFragment).commit();
+        toolbarTitle.setText("Custom Color");
+
+        bottomNavigationView.findViewById(R.id.custom).performClick();
+        MenuItem item = bottomNavigationView.getMenu().findItem(R.id.custom);
+        item.setChecked(true);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -89,6 +98,7 @@ public class Main extends AppCompatActivity {
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = toolbar.findViewById(R.id.toolbarTitle);
+        toolbarTitle.setVisibility(View.GONE);
     }
 
     private void promptConnection() {

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.CustomColorFragment">
+    tools:context=".UI.CustomColorFragment"
+    android:background="@color/background_second">
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -22,13 +23,28 @@
         layout="@layout/toolbar"
         />
 
-    <Button
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarMain"
+        android:layout_centerHorizontal="true"
+        android:text="Custom Colors"
+        android:textColor="@color/background"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarMain">
+    </TextView>
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/pick_color_button"
         android:layout_width="wrap_content"
         android:layout_height="60sp"
+        android:background="@drawable/rounded_button2_colored"
         android:layout_gravity="center"
         android:layout_marginHorizontal="120dp"
         android:layout_marginTop="100dp"
+        app:cornerRadius="50dp"
         android:text="Pick Color"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -43,10 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="Your selcted color preview:"
+        android:text="Current selcted color:"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/text"
         android:elevation="5sp"
         android:shadowColor="@color/black"
         android:shadowDx="0"
@@ -79,6 +95,7 @@
         android:text="Set Color"
         android:textStyle="bold"
         android:textSize="20dp"
+        android:background="@drawable/rounded_button2_colored"
         app:layout_constraintEnd_toEndOf="@+id/frameLayout"
         app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/preview_selected_color" />
