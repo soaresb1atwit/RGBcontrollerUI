@@ -24,10 +24,23 @@
                 android:layout_height="55dip"
                 android:layout_marginBottom="20dp"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/power_btn"></ImageButton>
+                android:src="@drawable/power_btn">
+            </ImageButton>
 
+            <ImageButton
+                android:id="@+id/settingsBtn"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:backgroundTint="@color/button"
+                android:scaleType="fitXY"
+                android:src="@drawable/settings_btn"></ImageButton>
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
