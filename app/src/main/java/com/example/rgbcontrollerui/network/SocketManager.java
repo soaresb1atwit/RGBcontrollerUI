@@ -14,6 +14,7 @@ public class SocketManager
     private final List<Socket> sockets ;
     private final int[] portNumber = new int[100] ;
     private final int port = 1234;
+    private int count = 0 ;
     private final Socket socket ;
 
    /* public void serverSocket(int port) {
@@ -60,10 +61,12 @@ public class SocketManager
         this.sockets = new ArrayList<>();
     }
 
-    public Socket createSocket()
+    public Socket createSocket(int port)
     {
         Socket socket = new Socket();
         this.sockets.add(socket);
+        portNumber[count] = port ;
+        count = count + 1 ;
         return socket;
     }
 
