@@ -11,7 +11,8 @@ import java.util.List;
 
 public class SocketManager
 {
-    private final List<Socket> sockets;
+    private final List<Socket> sockets ;
+    private final int[] portNumber = new int[100] ;
     private final int port = 1234;
     private final Socket socket ;
 
@@ -42,6 +43,11 @@ public class SocketManager
          toServer.println("Hello from " + socket.getLocalSocketAddress());
          String line = fromServer.readLine();
          System.out.println("Client received: " + line + " from Server");
+        while(!socket.isClosed())
+        {
+            new PrintWriter(socket.getOutputStream(), true);
+        }
+
      } catch (IOException e) {
          throw new RuntimeException(e);
      }
