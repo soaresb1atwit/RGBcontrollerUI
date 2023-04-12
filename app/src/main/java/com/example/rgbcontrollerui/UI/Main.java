@@ -1,5 +1,7 @@
 package com.example.rgbcontrollerui.UI;
 
+import static java.security.AccessController.getContext;
+
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,44 +99,48 @@ public class Main extends AppCompatActivity {
         });
 
         ImageButton imageButton = (ImageButton) toolbar.findViewById(R.id.settingsBtn);
+        PopupMenu dropDownMenu = new PopupMenu(this, imageButton);
+        Menu menu = dropDownMenu.getMenu();
+        dropDownMenu.getMenuInflater().inflate(R.menu.settings_menu, menu);
+
+        dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.reconnect:
+                            promptInAppConnection();
+                        System.out.println("Reconnect is pressed");
+                        return true;
+                    case R.id.debug:
+                        System.out.println("Debug is pressed");
+                        Intent launchNewIntent = new Intent(Main.this,TcpTemp.class);
+                        startActivityForResult(launchNewIntent, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptInAppConnection();
+                dropDownMenu.show();
             }
         });
 
         ImageButton powerBtn = (ImageButton) toolbar.findViewById(R.id.powerBtn);
-        powerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), TcpTemp.class);
-                view.getContext().startActivity(intent);}
-        });
+//        powerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), TcpTemp.class);
+//                view.getContext().startActivity(intent);}
+//        });
     }
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = toolbar.findViewById(R.id.toolbarTitle);
         toolbarTitle.setVisibility(View.GONE);
-    }
-
-    public boolean onCreateOptionsMenu (Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemsSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.reconnect:
-                Toast.makeText(this, "Reconnect is pressed", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.debug:
-                Toast.makeText(this, "Debug is pressed", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void promptConnection() {
