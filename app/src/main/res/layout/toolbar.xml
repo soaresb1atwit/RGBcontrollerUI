@@ -26,7 +26,8 @@
                 android:layout_marginBottom="20dp"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/power_btn"></ImageButton>
+                android:src="@drawable/power_btn">
+            </ImageButton>
 
             <ImageButton
                 android:id="@+id/settingsBtn"
@@ -38,7 +39,8 @@
                 android:background="@null"
                 android:backgroundTint="@color/button"
                 android:scaleType="fitXY"
-                android:src="@drawable/settings_btn"></ImageButton>
+                android:src="@drawable/settings_btn">
+            </ImageButton>
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"

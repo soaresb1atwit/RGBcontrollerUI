@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Reconnect"
+        android:icon="@drawable/baseline_network_wifi_2_bar_24"
+        android:id="@+id/reconnect"
+        android:drawable="@color/background"/>
+    <item android:title="Debug"
+        android:icon="@drawable/baseline_bug_report_24"
+        android:id="@+id/debug"/>
+</menu>

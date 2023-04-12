@@ -9,7 +9,10 @@ import android.widget.EditText;
 import com.example.rgbcontrollerui.R;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,8 +28,7 @@ public class TcpTemp extends AppCompatActivity {
     private final String ip = "192.168.1.249";
     private final int portNum = 12345;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tcp_temp);
 
@@ -71,22 +73,55 @@ public class TcpTemp extends AppCompatActivity {
                 oos.writeObject(outMessage);
                 Log.d("STATUS","MESSAGE SENT: " + outMessage);
 
-                ois = new ObjectInputStream(socket.getInputStream());
-                String message = (String) ois.readObject();
-                System.out.println("Message: " + message);
-                Log.d("STATUS","MESSAGE RECEIVED: " + message);
 
-                ois.close();
+
+                byte[] messageByte = new byte[1000];
+                boolean end = false;
+                String dataString = "";
+
+                try
+                {
+                    InputStream inputStream = socket.getInputStream();
+                    DataInputStream in = new DataInputStream(inputStream);
+
+//                    while(!end)
+//                    {
+//                        int bytesRead = in.read(messageByte);
+//                        dataString += new String(messageByte, 0, bytesRead);
+//                        if (dataString.length() == 100)
+//                        {
+//                            end = true;
+//                        }
+//                    }
+                    dataString = in.readUTF();
+                    System.out.println("MESSAGE RECEIVED: " + dataString);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+//                ois = new ObjectInputStream(socket.getInputStream());
+//                String message = (String) ois.readObject();
+
+//                System.out.println("Message: " + message);
+//                Log.d("STATUS","MESSAGE RECEIVED: " + message);
+
+//                ois.close();
                 oos.close();
             }
             catch (IOException e) {
                 Log.d("Status 1","First runtime exception.");
                 e.printStackTrace();
             }
-            catch (ClassNotFoundException e) {
-                Log.d("Status 2","Second runtime exception.");
-                throw new RuntimeException(e);
-            }
+//            catch (ClassNotFoundException e) {
+//                Log.d("Status 2","Second runtime exception.");
+//                throw new RuntimeException(e);
+//            }
 
             // System.out.println("Server started. Listening to the port ####");
             System.out.println("Server started. Listening to the port: " + portNum);

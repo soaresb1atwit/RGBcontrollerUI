@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -114,6 +116,24 @@ public class Main extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = toolbar.findViewById(R.id.toolbarTitle);
         toolbarTitle.setVisibility(View.GONE);
+    }
+
+    public boolean onCreateOptionsMenu (Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemsSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reconnect:
+                Toast.makeText(this, "Reconnect is pressed", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.debug:
+                Toast.makeText(this, "Debug is pressed", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void promptConnection() {
