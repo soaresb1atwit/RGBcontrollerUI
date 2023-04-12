@@ -27,6 +27,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
+import kotlin.text.Charsets;
+
 public class TcpTemp extends AppCompatActivity {
     // declaring required variables
     private EditText textField;
@@ -89,6 +91,19 @@ public class TcpTemp extends AppCompatActivity {
             this.outMessage = outMessage;
         }
 
+        private String convertStreamToString(InputStream is) throws IOException
+        {
+            String response = "";
+            byte[] packet = new byte[128];
+            int read = is.read(packet);
+            if(read < 0)
+            {
+                return response;
+            }
+            response += new String(packet, 0, read, Charsets.US_ASCII);
+            return response;
+        }
+
         @Override
         public void run() {
             try {
@@ -105,17 +120,21 @@ public class TcpTemp extends AppCompatActivity {
                 try
                 {
                     InputStream inputStream = socket.getInputStream();
-                    DataInputStream in = new DataInputStream(inputStream);
+//                    DataInputStream in = new DataInputStream(inputStream);
 
-                    dataString = in.readUTF();
+                    dataString = convertStreamToString(inputStream);
+
+//                    dataString = in.readUTF();
                     System.out.println("MESSAGE RECEIVED: " + dataString);
                     inMessage = dataString;
-                    in.close();
+//                    in.close();
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
+
+
 
 
 
