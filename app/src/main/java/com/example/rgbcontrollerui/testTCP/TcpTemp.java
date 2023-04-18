@@ -31,14 +31,13 @@ import kotlin.text.Charsets;
 
 public class TcpTemp extends AppCompatActivity {
     // declaring required variables
-    private EditText textField;
+    private static EditText textField;
     private Button button;
     private String outMessage;
     public static String inMessage;
-    private final String ip = "192.168.1.249";
-    private final int portNum = 12345;
 
-    @Override    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tcp_temp);
 
@@ -86,8 +85,10 @@ public class TcpTemp extends AppCompatActivity {
         Socket socket = null;
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
+        private final String ip = "10.220.40.75";
+        private final int portNum = 12345;
 
-        ClientThread(String outMessage) {
+        public ClientThread(String outMessage) {
             this.outMessage = outMessage;
         }
 
@@ -120,45 +121,23 @@ public class TcpTemp extends AppCompatActivity {
                 try
                 {
                     InputStream inputStream = socket.getInputStream();
-//                    DataInputStream in = new DataInputStream(inputStream);
 
                     dataString = convertStreamToString(inputStream);
 
-//                    dataString = in.readUTF();
                     System.out.println("MESSAGE RECEIVED: " + dataString);
                     inMessage = dataString;
-//                    in.close();
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-
-
-
-
-
-
-
-//                ois = new ObjectInputStream(socket.getInputStream());
-//                String message = (String) ois.readObject();
-
-//                System.out.println("Message: " + message);
-//                Log.d("STATUS","MESSAGE RECEIVED: " + message);
-
-//                ois.close();
                 oos.close();
             }
             catch (IOException e) {
                 Log.d("Status 1","First runtime exception.");
                 e.printStackTrace();
             }
-//            catch (ClassNotFoundException e) {
-//                Log.d("Status 2","Second runtime exception.");
-//                throw new RuntimeException(e);
-//            }
 
-            // System.out.println("Server started. Listening to the port ####");
             System.out.println("Server started. Listening to the port: " + portNum);
 
             // updating the UI

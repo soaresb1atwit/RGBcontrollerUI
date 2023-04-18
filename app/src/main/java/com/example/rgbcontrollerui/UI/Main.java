@@ -1,25 +1,18 @@
 package com.example.rgbcontrollerui.UI;
 
-import static java.security.AccessController.getContext;
-
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -38,16 +32,24 @@ import com.example.rgbcontrollerui.R;
 import com.example.rgbcontrollerui.testTCP.TcpTemp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import kotlin.text.Charsets;
 
 public class Main extends AppCompatActivity {
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 6;
     final int PERMISSION_REQUEST_CODE = 112;
-    private Toolbar toolbar;
+    static Toolbar toolbar;
+    static ImageButton powerBtn;
+    static PopupMenu dropDownMenu;
+    static Menu menu;
     private TextView toolbarTitle;
+    public static String powerBtnState = "off";
     public static BottomNavigationView bottomNavigationView;
     CustomColorFragment customColorFragment = new CustomColorFragment();
     FadeColorFragment fadeColorFragment = new FadeColorFragment();
@@ -91,7 +93,7 @@ public class Main extends AppCompatActivity {
                         return true;
                     case R.id.music:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, musicSyncFragment).commit();
-                        toolbar.setVisibility(View.GONE);
+//                        toolbar.setVisibility(View.GONE);
                         return true;
                 }
                 return false;
@@ -99,8 +101,8 @@ public class Main extends AppCompatActivity {
         });
 
         ImageButton imageButton = (ImageButton) toolbar.findViewById(R.id.settingsBtn);
-        PopupMenu dropDownMenu = new PopupMenu(this, imageButton);
-        Menu menu = dropDownMenu.getMenu();
+        dropDownMenu = new PopupMenu(this, imageButton);
+        menu = dropDownMenu.getMenu();
         dropDownMenu.getMenuInflater().inflate(R.menu.settings_menu, menu);
 
         dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -128,13 +130,26 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        ImageButton powerBtn = (ImageButton) toolbar.findViewById(R.id.powerBtn);
-//        powerBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), TcpTemp.class);
-//                view.getContext().startActivity(intent);}
-//        });
+        powerBtn = (ImageButton) toolbar.findViewById(R.id.powerBtn);
+
+        powerBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                if (powerBtnState.equalsIgnoreCase("off")) {
+                    powerBtn.setColorFilter(Color.WHITE); // White Tint
+                    powerBtnState = "on";
+                }
+                else if (powerBtnState.equalsIgnoreCase("ON")) {
+                    powerBtn.setColorFilter(Color.BLACK); // White Tint
+                    powerBtnState = "off";
+                }
+                new Thread(new ClientThread("TOGGLEPOWER: " + powerBtnState)).start();
+                if (!powerBtnState.equalsIgnoreCase("off")) {
+                    Toast.makeText(getApplicationContext(),"Connection Successful!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setToolbar() {
@@ -165,6 +180,7 @@ public class Main extends AppCompatActivity {
 
         confirm.setOnClickListener(v -> {
             dialog.dismiss();
+            Toast.makeText(getApplicationContext(),"Power on the lights using the power button above.",Toast.LENGTH_LONG).show();
         });
     }
 
@@ -229,66 +245,6 @@ public class Main extends AppCompatActivity {
         return true;
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case REQUEST_ID_MULTIPLE_PERMISSIONS: {
-//
-//                Map<String, Integer> perms = new HashMap<>();
-//                // Initialize the map with both permissions
-//                perms.put(Manifest.permission.ACCESS_COARSE_LOCATION, PackageManager.PERMISSION_GRANTED);
-//                perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
-//                perms.put(Manifest.permission.READ_MEDIA_AUDIO, PackageManager.PERMISSION_GRANTED);
-//                perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
-//                perms.put(Manifest.permission.ACCESS_WIFI_STATE, PackageManager.PERMISSION_GRANTED);
-//                perms.put(Manifest.permission.CHANGE_WIFI_STATE, PackageManager.PERMISSION_GRANTED);
-//                // Fill with actual results from user
-//                if (grantResults.length > 0) {
-//                    for (int i = 0; i < permissions.length; i++)
-//                        perms.put(permissions[i], grantResults[i]);
-//                    // Check for both permissions
-//                    if (perms.get(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-//                            && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-//                            && perms.get(Manifest.permission.READ_MEDIA_AUDIO) == PackageManager.PERMISSION_GRANTED
-//                            && perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-//                            && perms.get(Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED
-//                            && perms.get(Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED) {
-//                        // process the normal flow
-//                        //else any one or both the permissions are not granted
-//                    } else {
-//                        //permission is denied (this is the first time, when "never ask again" is not checked) so ask again explaining the usage of permission
-////                        // shouldShowRequestPermissionRationale will return true
-//                        //show the dialog or snackbar saying its necessary and try again otherwise proceed with setup.
-//                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                            showDialogOK("Location, WiFi, and Read Services Permission required for this app",
-//                                    new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            switch (which) {
-//                                                case DialogInterface.BUTTON_POSITIVE:
-//                                                    checkAndRequestPermissions();
-//                                                    break;
-//                                                case DialogInterface.BUTTON_NEGATIVE:
-//                                                    // proceed with logic by disabling the related features or quit the app.
-//                                                    break;
-//                                            }
-//                                        }
-//                                    });
-//                        }
-//                        //permission is denied (and never ask again is  checked)
-//                        //shouldShowRequestPermissionRationale will return false
-//                        else {
-//                            Toast.makeText(this, "Go to settings and enable permissions", Toast.LENGTH_LONG)
-//                                    .show();
-//                            //                            //proceed with logic by disabling the related features or quit the app.
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     private void showDialogOK(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
@@ -328,5 +284,79 @@ public class Main extends AppCompatActivity {
         }
     }
 
+    static class ClientThread implements Runnable {
+        private final String outMessage;
+        String inMessage;
+        Socket socket = null;
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        private final String ip = "10.220.40.75";
+        private final int portNum = 12345;
 
+        public ClientThread(String outMessage) {
+            this.outMessage = outMessage;
+        }
+
+        private String convertStreamToString(InputStream is) throws IOException
+        {
+            String response = "";
+            byte[] packet = new byte[128];
+            int read = is.read(packet);
+            if(read < 0)
+            {
+                return response;
+            }
+            response += new String(packet, 0, read, Charsets.US_ASCII);
+            return response;
+        }
+
+        @Override
+        public void run() {
+            try {
+                socket = new Socket(ip, portNum);
+                oos = new ObjectOutputStream(socket.getOutputStream());
+                System.out.println("Sending request to Socket Server");
+
+                oos.writeObject(outMessage);
+
+                Log.d("STATUS","MESSAGE SENT: " + outMessage);
+
+                String dataString = "";
+
+                try
+                {
+                    InputStream inputStream = socket.getInputStream();
+
+                    dataString = convertStreamToString(inputStream);
+
+                    System.out.println("MESSAGE RECEIVED: " + dataString);
+                    Log.d("MESSAGE RECEIVED: ", dataString);
+                    inMessage = dataString;
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                oos.close();
+            }
+            catch (IOException e) {
+                Log.d("Status 1","First runtime exception.");
+                e.printStackTrace();
+            }
+
+            System.out.println("Server started. Listening to the port: " + portNum);
+
+            // updating the UI
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (textField.getText().toString().equalsIgnoreCase("exit")) {
+//                        finish();
+//                    }
+//                    textField.setText("");
+//                }
+//            });
+//            finish();
+        }
+    }
 }

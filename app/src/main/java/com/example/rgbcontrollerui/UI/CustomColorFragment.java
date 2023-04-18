@@ -1,5 +1,9 @@
 package com.example.rgbcontrollerui.UI;
 
+import static com.example.rgbcontrollerui.UI.Main.powerBtnState;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.rgbcontrollerui.R;
@@ -22,7 +27,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
  * create an instance of this fragment.
  */
 public class CustomColorFragment extends Fragment {
-    private Toolbar toolbar;
     private Button setColorButton, pickColorButton;
     private View colorPreview;
     private View mColorMainView;
@@ -38,6 +42,24 @@ public class CustomColorFragment extends Fragment {
         colorPreviewTextView = mColorMainView.findViewById(R.id.colorPreviewTextView);
         mDefaultColor = 0;
 
+//        ImageButton powerBtn = (ImageButton) toolbar.findViewById(R.id.powerBtn);
+
+//        powerBtn.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClick(View view) {
+//                new Thread(new Main.ClientThread("POWER ON")).start();
+//                if (powerBtnState.equalsIgnoreCase("off")) {
+//                    powerBtn.setColorFilter(Color.WHITE); // White Tint
+//                    powerBtnState = "on";
+//                }
+//                else if (powerBtnState.equalsIgnoreCase("ON")) {
+//                    powerBtn.setColorFilter(Color.BLACK); // White Tint
+//                    powerBtnState = "off";
+//                }
+//            }
+//        });
+
         pickColorButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -49,6 +71,7 @@ public class CustomColorFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        new Thread(new Main.ClientThread("CUSTOM:" + Integer.toHexString(mDefaultColor).substring(2))).start();
                         // as the mDefaultColor is the global
                         // variable its value will be changed as
                         // soon as ok button is clicked from the
